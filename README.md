@@ -1,2 +1,2 @@
 # TCore
-## a e2 core that add new functions
+a e2 core that add new functions
