@@ -1,11 +1,14 @@
 E2Lib.RegisterExtension("tcore", true)
 
 
+-- chat ---
+
+	local ChatAlert = {}
+	local chipHideChatPly = {}
+
 --
 
 
-local ChatAlert = {}
-local chipHideChatPly = {}
 
 --[[************************************************************************************************]]--
 
@@ -53,7 +56,7 @@ e2function void runOnChat(activate)
 
 end
 
--- ------------------------------
+-- hides a players chat------------------------------
 
 __e2setcost(5)
 
