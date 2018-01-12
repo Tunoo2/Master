@@ -1,48 +1,72 @@
 E2Lib.RegisterExtension("tcore", true)
 
---[[
 
-hook.Add("PlayerSay","hideChat", function(ply, text, teamchat)
-	--local entry = { text, CurTime(), ply, teamchat }
-	--TextList[ply:EntIndex()] = entry
-	--TextList.last = entry
+--
 
-	runByChat = 1
-	chipHideChat = false
-	local hideCurrent = false
+
+local ChatAlert = {}
+local chipHideChatPly = {}
+
+--[[************************************************************************************************]]--
+
+
+
+
+hook.Add("PlayerSay","hideChat", function(ply)
+
+	local hideCurrent = 0 
+
 	for e , _ in pairs(ChatAlert) do
 		if IsValid(e) then
-			chipHideChat = nil
-			--e:Execute()
-			--if chipHideChat ~= nil and ply == e.player then
-			if chipHideChat then
-				hideCurrent = chipHideChat
+			
+			e:Execute() -- execute's the chip , does magic dont touch!
+			
+			if chipHideChatPly[ply] == true then
+				hideCurrent = 1
+				chipHideChatPly[ply] = nil
 			end
-		else
-			ChatAlert[e] = nil
 		end
+	
 	end
-	runByChat = 0
 
-	if hideCurrent then return "" end
+	if hideCurrent == 1 then 
+		hideCurrent = 0
+		return ""  
+	end
+
 end)
 
 
-]]
 
 -- e2 functions -----------------------------------
 
---e2function string plyHideChat(ply,adwa)
 
---	print("----------------------------------------------")
+__e2setcost(3)
 
---end
+e2function void runOnChat(activate)
+	if activate ~= 0 then
+		ChatAlert[self.entity] = true
+		--self.player:ChatPrint("GEIILLLL")
+	else
+		ChatAlert[self.entity] = nil
+	end
+
+end
+
+-- ------------------------------
+
+__e2setcost(5)
+
+e2function void plyHideChat(entity ply , number hide)
+	if ply:IsPlayer()  then
+		chipHideChatPly[ply] = true
+	end
+end
 
 
 
 
-
-
+ 
 
 
 
