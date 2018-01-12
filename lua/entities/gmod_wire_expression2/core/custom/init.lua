@@ -1,5 +1,32 @@
 E2Lib.RegisterExtension("tcore", true)
 
+local function tableToE2Table(data)
+	local e2table = {n={},ntypes={},s={},stypes={},size=0}
+	local size = 0
+
+	for k,v in pairs( data ) do
+		size = size + 1
+		local vtype = type(v)
+		if vtype == "boolean" then
+			e2table.stypes[k] = "n"
+			e2table.s[k] = v and 1 or 0
+		elseif vtype == "table" then
+			e2table.stypes[k] = "t"
+			e2table.s[k] = tableToE2Table(v)
+		elseif type(k) == "number" then
+			e2table.ntypes[k] = "n"
+			e2table.n[k] = v
+		elseif type(k) == "string" then
+			e2table.ntypes[k] = "s"
+			e2table.n[k] = v
+		else
+			ErrorNoHalt("Unknown type detected key:"..vtype.." value"..v)
+		end
+	end
+	e2table.size = size
+	return e2table
+end
+
 
 -- chat ---
 
@@ -7,7 +34,6 @@ E2Lib.RegisterExtension("tcore", true)
 	local chipHideChatPly = {}
 
 --
-
 
 
 --[[************************************************************************************************]]--
@@ -67,10 +93,25 @@ e2function void plyHideChat(entity ply , number hide)
 end
 
 
+-- gives the addons on the server as table with info's ------------------------------
 
+e2function table addons()
+	
+	GA = engine.GetAddons()
+	local RetT = {}
 
- 
+	for i , addon in pairs(GA) do
+		RetT[addon.title] = {
+			["downloaded"]=addon.downloaded,
+			["mounted"]=addon.mounted,
+			["workshop id"]=addon.wsid,
+			["tags"] = addon.tags
+		}
+	end
 
+	return tableToE2Table(RetT)
+
+end
 
 
 
