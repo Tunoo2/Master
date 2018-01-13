@@ -86,9 +86,11 @@ end
 
 __e2setcost(5)
 
-e2function void plyHideChat(entity ply , number hide)
-	if ply:IsPlayer()  then
-		chipHideChatPly[ply] = true
+e2function void entity:plyHideChat(number hide)
+	if this:IsPlayer() then
+		if (hide~=0) then
+			chipHideChatPly[this] = true
+		end
 	end
 end
 
@@ -110,18 +112,11 @@ e2function table addons()
 		print(type(addon.tags))
 	end
 
-	--PrintTable(tableToE2Table(RetT))
-	
 	return tableToE2Table(RetT)
 
 end
 
 -- ------------------------------------------------------------
-
-
-
-
-
 
 
 
