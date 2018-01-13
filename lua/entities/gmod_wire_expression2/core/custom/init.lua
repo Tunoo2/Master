@@ -7,18 +7,19 @@ local function tableToE2Table(data)
 	for k,v in pairs( data ) do
 		size = size + 1
 		local vtype = type(v)
+		local indextype = string.sub(type(k),1,1)
 		if vtype == "boolean" then
-			e2table.stypes[k] = "n"
-			e2table.s[k] = v and 1 or 0
+			e2table[indextype.."types"][k] = "n"
+			e2table[indextype][k] = v and 1 or 0
 		elseif vtype == "table" then
-			e2table.stypes[k] = "t"
-			e2table.s[k] = tableToE2Table(v)
+			e2table[indextype.."types"][k] = "t"
+			e2table[indextype][k] = tableToE2Table(v)
 		elseif type(k) == "number" then
-			e2table.ntypes[k] = "n"
-			e2table.n[k] = v
+			e2table[indextype.."types"][k] = "n"
+			e2table[indextype][k] = v
 		elseif type(k) == "string" then
-			e2table.ntypes[k] = "s"
-			e2table.n[k] = v
+			e2table[indextype.."types"][k] = "s"
+			e2table[indextype][k] = v
 		else
 			ErrorNoHalt("Unknown type detected key:"..vtype.." value"..v)
 		end
@@ -26,7 +27,6 @@ local function tableToE2Table(data)
 	e2table.size = size
 	return e2table
 end
-
 
 -- chat ---
 
@@ -107,14 +107,16 @@ e2function table addons()
 			["workshop id"]=addon.wsid,
 			["tags"] = addon.tags
 		}
+		print(type(addon.tags))
 	end
 
+	--PrintTable(tableToE2Table(RetT))
+	
 	return tableToE2Table(RetT)
 
 end
 
-
-
+-- ------------------------------------------------------------
 
 
 
