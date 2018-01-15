@@ -45,7 +45,7 @@ hook.Add("PlayerSay","hideChat", function(ply)
 
 	local hideCurrent = 0 
 
-	for e , _ in pairs(ChatAlert) do
+
 		if IsValid(e) then
 			
 			e:Execute() -- execute's the chip , does magic dont touch!
@@ -56,8 +56,6 @@ hook.Add("PlayerSay","hideChat", function(ply)
 			end
 		end
 	
-	end
-
 	if hideCurrent == 1 then 
 		hideCurrent = 0
 		return ""  
@@ -67,9 +65,10 @@ end)
 
 
 
--- e2 functions -----------------------------------
+----------------------------------- e2 functions -----------------------------------
 
 
+--[[ 
 __e2setcost(3)
 
 e2function void runOnChat(activate)
@@ -81,6 +80,8 @@ e2function void runOnChat(activate)
 	end
 
 end
+]]
+
 
 -- hides a players chat------------------------------
 
@@ -116,7 +117,30 @@ e2function table addons()
 
 end
 
--- ------------------------------------------------------------
+-- sortArray ------------------------------------------------------------
+
+e2function array sortArray(array array,string func)
+
+	local sk = func or "<"
+	local ret  = array
+
+	if sk == "<" then
+		table.sort( ret , function(a,b) return a < b end )
+	elseif sk == ">" then
+		table.sort( ret , function(a,b) return a > b end )
+	end
+
+	return ret
+end
+
+
+
+
+
+
+
+
+
 
 
 
