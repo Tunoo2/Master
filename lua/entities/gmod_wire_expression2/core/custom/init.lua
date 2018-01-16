@@ -133,11 +133,23 @@ e2function array sortArray(array array,string func)
 	return ret
 end
 
+-- sortTable ------------------------------------------------------------
 
+e2function table sortTable(table table,string func)
 
+	local sk = func or "<"
+	local ret  = table
 
+	if sk == "<" then
+		table.sort( ret , function(a,b) return a < b end )
+	elseif sk == ">" then
+		table.sort( ret , function(a,b) return a > b end )
+	end
 
+	return tableToE2Table(ret)
+end
 
+-- addConCmd ------------------------------------------------------------
 
 
 
