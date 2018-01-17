@@ -28,12 +28,22 @@ local function tableToE2Table(data)
 	return e2table
 end
 
--- chat ---
+-- chat ---------
 
 	local ChatAlert = {}
 	local chipHideChatPly = {}
 
---
+-- console commands ---------
+
+
+net.Receive("console_Command_clk",function()
+
+
+
+end)
+
+
+
 
 
 --[[************************************************************************************************]]--
@@ -150,10 +160,12 @@ e2function table sortTable(table table,string func)
 end
 
 -- addConCmd ------------------------------------------------------------
+e2function void conCmdAdd(string cmd)
 
-
-
-
+	net.Start("console_Command_add",false)
+		net.WriteString(cmd)
+	net.Send(self.entity.player)
+end
 
 
 
