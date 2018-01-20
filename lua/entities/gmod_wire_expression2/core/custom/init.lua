@@ -33,23 +33,11 @@ end
 	local ChatAlert = {}
 	local chipHideChatPly = {}
 
--- console commands ---------
-
-
-net.Receive("console_Command_clk",function()
-
-
-
-end)
-
-
-
-
 
 --[[************************************************************************************************]]--
 
 
-
+-- plyhidechat ---------
 
 hook.Add("PlayerSay","hideChat", function(ply)
 
@@ -73,6 +61,14 @@ hook.Add("PlayerSay","hideChat", function(ply)
 
 end)
 
+
+-- console commands ---------
+
+net.Receive("console_Command_clk",function()
+
+
+
+end)
 
 
 ----------------------------------- e2 functions -----------------------------------
